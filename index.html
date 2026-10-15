@@ -3,11 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jullious Daya|official portfolio</title>
+<title>Jullious Daya | Student & Aspiring Web Developer</title>
 <meta name="description" content="Jullious Daya — student, aspiring web developer and computer science enthusiast. Explore my skills, projects and learning journey.">
 <meta name="author" content="Jullious Daya">
+<meta name="theme-color" content="#050816">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Jullious Daya | Student & Aspiring Web Developer">
+<meta property="og:description" content="Student, aspiring web developer and computer science enthusiast. Explore my skills, projects and learning journey.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💻</text></svg>">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
 body{font-family:Arial,sans-serif;color:white;background:
 radial-gradient(circle at 10% 10%,rgba(252,173,3,.18),transparent 30%),
 radial-gradient(circle at 90% 20%,rgba(110,50,255,.20),transparent 30%),
@@ -40,22 +46,36 @@ section{padding:100px 8%}.section-title{text-align:center;font-size:38px;margin-
 .journey{max-width:800px;margin:auto}.journey-item{border-left:2px solid #fcad03;padding:0 0 35px 30px;position:relative}
 .journey-item::before{content:"";width:12px;height:12px;background:#fcad03;border-radius:50%;position:absolute;left:-7px;top:5px;box-shadow:0 0 15px #fcad03}
 .journey-item h3{margin-bottom:8px}.journey-item p{color:#9da8bd}
-.daily-box{max-width:700px;margin:20px auto;padding:22px;text-align:center;background:#142f68;border-radius:50px;letter-spacing:4px;box-shadow:0 10px 40px rgba(20,47,104,.4)}
 .contact{text-align:center}.contact p{color:#aeb8ca;margin-bottom:20px}
 footer{padding:35px 20px;text-align:center;background:#03050d;color:#7f8ba1;border-top:1px solid rgba(255,255,255,.08)}footer strong{color:#fcad03}
-@media(max-width:650px){nav{flex-direction:column;gap:12px}nav a{margin:0 6px;font-size:13px}section{padding:70px 6%}.profile-container{width:165px;height:165px}}
+/* ===== NEW: upgrade styles ===== */
+a:focus-visible,button:focus-visible{outline:2px solid #fcad03;outline-offset:3px}
+nav a.active{color:#fcad03}
+.menu-btn{display:none;background:none;border:1px solid rgba(255,255,255,.25);color:white;font-size:22px;border-radius:10px;padding:2px 12px;cursor:pointer}
+.hero h3{min-height:1.4em}
+.caret::after{content:"|";color:#fcad03;margin-left:3px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.reveal.show{opacity:1;transform:none}
+.to-top{position:fixed;right:22px;bottom:22px;width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(5,8,22,.85);color:#fcad03;font-size:20px;cursor:pointer;opacity:0;pointer-events:none;transition:.3s}
+.to-top.show{opacity:1;pointer-events:auto}
+.to-top:hover{border-color:#fcad03}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}.reveal{opacity:1;transform:none}}
+@media(max-width:650px){nav{flex-wrap:wrap}.menu-btn{display:block}.nav-links{display:none;width:100%;flex-direction:column;padding-top:12px}nav.open .nav-links{display:flex}nav a{margin:0;padding:10px 4px;font-size:16px}section{padding:70px 6%}.profile-container{width:165px;height:165px}}
 </style>
 </head>
 <body>
 
-<nav><h2>JD.</h2><div>
+<nav><h2>JD.</h2>
+<button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
+<div class="nav-links">
 <a href="#about">About</a><a href="#skills">Skills</a><a href="#projects">Projects</a><a href="#journey">Journey</a><a href="#contact">Contact</a>
 </div></nav>
 
 <section class="hero"><div class="hero-content">
 <div class="hello">✨ WELCOME TO MY PORTFOLIO</div>
 <h1>I'm <span>Jullious Daya</span></h1>
-<h3>Student • Aspiring Web Developer • CS Enthusiast</h3>
+<h3 id="typing">Student • Aspiring Web Developer • CS Enthusiast</h3>
 <p>I am learning, building and experimenting with technology to turn ideas into useful digital experiences.</p>
 
 <div class="profile-container"><div class="profile">
@@ -99,22 +119,73 @@ footer{padding:35px 20px;text-align:center;background:#03050d;color:#7f8ba1;bord
 <div class="journey-item"><h3>Python</h3><p>Developing programming fundamentals and solving problems through Python.</p></div>
 <div class="journey-item"><h3>Next Step 🚀</h3><p>Continuing toward JavaScript, advanced web development and larger projects.</p></div>
 </div>
-<div class="daily-box">✨ DAILY PREPARATION ✨</div></section>
+</section>
+
+<section id="daily"><h2 class="section-title">Daily <span>Practice</span></h2>
+<div class="skills">
+<div class="skill"><div class="skill-icon">⌨️</div><h3>Code</h3><p>Short HTML, CSS and Python exercises</p></div>
+<div class="skill"><div class="skill-icon">📚</div><h3>Learn</h3><p>One new concept every day</p></div>
+<div class="skill"><div class="skill-icon">🛠️</div><h3>Build</h3><p>Improve a small project</p></div>
+</div></section>
 
 <section id="contact"><div class="contact">
 <h2 class="section-title">Let's <span>Connect</span></h2>
 <p>Explore my projects and follow my learning journey.</p>
 <div class="buttons">
-<a href="https://github.com/diyaram798-dev" target="_blank" class="btn">GitHub</a>
-<a href="https://www.linkedin.com/in/daya-ram-4aa9a1440" target="_blank" class="btn">LinkedIn</a>
-<a href="mailto:diyaram798@gmail.com" class="btn">Email</a>
-</div>
+<!-- Replace the three links below with your real email, GitHub and LinkedIn -->
+<a href="mailto:YOUR-EMAIL@example.com" class="btn">Email Me</a>
+<a href="YOUR-GITHUB-URL" class="btn btn-outline">GitHub</a>
+<a href="YOUR-LINKEDIN-URL" class="btn btn-outline">LinkedIn</a>
 </div></div></section>
 
 <footer>
-<p>© 2026 <strong>Jullious Daya</strong>. Built with HTML & CSS.</p>
+<p>© 2026 <strong>Jullious Daya</strong>. Built with HTML, CSS & JavaScript.</p>
 <p>✨ Learning • Building • Growing 💫</p>
 </footer>
 
+<button class="to-top" id="top" aria-label="Back to top">↑</button>
+
+<script>
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// 1) Mobile menu: open/close with the ☰ button
+const nav = document.querySelector('nav'), menuBtn = document.getElementById('menuBtn');
+function setMenu(open){ nav.classList.toggle('open', open); menuBtn.setAttribute('aria-expanded', open); }
+menuBtn.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
+document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+
+// 2) Typing effect on the hero subtitle (skipped if reduced motion is on)
+const sub = document.getElementById('typing');
+if (!reduce) {
+  const text = sub.textContent; let i = 0;
+  sub.setAttribute('aria-label', text); sub.textContent = ''; sub.classList.add('caret');
+  (function type(){
+    sub.textContent = text.slice(0, ++i);
+    if (i < text.length) setTimeout(type, 45);
+    else setTimeout(() => sub.classList.remove('caret'), 1500);
+  })();
+}
+
+// 3) Fade-in when sections scroll into view
+const items = document.querySelectorAll('.section-title,.about-card,.skills,.projects,.journey,.contact p,.contact .buttons');
+if (!reduce && 'IntersectionObserver' in window) {
+  const reveal = new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('show'); reveal.unobserve(e.target); }
+  }), { threshold: .15 });
+  items.forEach(el => { el.classList.add('reveal'); reveal.observe(el); });
+}
+
+// 4) Highlight the nav link of the section you are viewing
+const links = [...document.querySelectorAll('.nav-links a')];
+const spy = new IntersectionObserver(entries => entries.forEach(e => {
+  if (e.isIntersecting) links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
+}), { rootMargin: '-45% 0px -50% 0px' });
+document.querySelectorAll('section[id]').forEach(s => spy.observe(s));
+
+// 5) Back-to-top button
+const topBtn = document.getElementById('top');
+addEventListener('scroll', () => topBtn.classList.toggle('show', scrollY > 500));
+topBtn.addEventListener('click', () => scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }));
+</script>
 </body>
 </html>

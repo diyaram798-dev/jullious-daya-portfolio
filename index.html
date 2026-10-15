@@ -85,6 +85,59 @@ nav a.active{color:#fcad03}
 #reviewStatus.ok{color:#4ade80}#reviewStatus.error{color:#ff8a8a}
 .review-privacy{text-align:center;font-size:13px;color:#7f8ba1}
 @media(max-width:480px){.reviews-section{padding:28px 16px}.star{font-size:32px}}
+
+.approved-reviews {
+  max-width: 750px;
+  margin: 40px auto;
+  padding: 25px 18px;
+  text-align: center;
+  color: #142f68;
+}
+
+.approved-reviews h2 {
+  font-size: 28px;
+}
+
+.reviews-intro {
+  color: #64748b;
+  margin-bottom: 25px;
+}
+
+.review-card {
+  background: #ffffff;
+  padding: 22px;
+  margin: 18px auto;
+  border-radius: 18px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 5px 18px rgba(20, 47, 104, 0.08);
+  text-align: left;
+}
+
+.review-stars {
+  color: #f4b400;
+  font-size: 24px;
+  letter-spacing: 3px;
+}
+
+.review-card h3 {
+  margin-bottom: 8px;
+}
+
+.review-card p {
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 480px) {
+  .approved-reviews {
+    padding: 18px 12px;
+  }
+
+  .review-card {
+    padding: 17px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -94,7 +147,9 @@ nav a.active{color:#fcad03}
 <div class="nav-links">
 <a href="#about">About</a><a href="#skills">Skills</a><a href="#projects">Projects</a><a href="#journey">Journey</a><a href="#contact">Contact</a>
 <a href="#reviews">⭐ Reviews</a>
+<a href="#approved-reviews">⭐ Visitor Reviews</a>
 </div></nav>
+  
 
 <section class="hero"><div class="hero-content">
 <div class="hello">✨ WELCOME TO MY PORTFOLIO</div>
@@ -229,7 +284,26 @@ nav a.active{color:#fcad03}
   </form>
 </section>
 
+<!-- APPROVED REVIEWS -->
+<section id="approved-reviews" class="approved-reviews">
+  <h2>⭐ What Visitors Say</h2>
+  <p class="reviews-intro">
+    Feedback from visitors to my portfolio.
+  </p>
 
+  <div class="review-card">
+    <div class="review-stars">★★★★★</div>
+    <h3>Example Visitor</h3>
+    <p>
+      This is an example review. Replace it with
+      genuine feedback after receiving permission
+      to publish it.
+    </p>
+  </div>
+
+  <!-- Add more approved review cards here -->
+
+</section>
 <footer>
 <p>© 2026 <strong>Jullious Daya</strong>. Built with HTML, CSS & JavaScript.</p>
 <p>✨ Learning • Building • Growing 💫</p>
@@ -350,6 +424,63 @@ reviewForm.addEventListener("submit", async (event) => {
     submitButton.textContent = "Send review";
   }
 });
+
+const approvedReviews = [
+  {
+    name: "Example Visitor",
+    rating: 5,
+    message: "A clean and impressive personal portfolio!"
+  },
+  {
+    name: "Another Visitor",
+    rating: 4,
+    message: "I enjoyed exploring the projects and design."
+  }
+];
+
+// Display approved reviews
+const reviewContainer =
+  document.getElementById("approved-reviews-list");
+
+const averageContainer =
+  document.getElementById("average-rating");
+
+if (reviewContainer && averageContainer) {
+  reviewContainer.replaceChildren();
+
+  if (approvedReviews.length === 0) {
+    reviewContainer.textContent = "No reviews published yet.";
+  } else {
+    const total = approvedReviews.reduce(
+      (sum, review) => sum + review.rating, 0
+    );
+
+    const average = total / approvedReviews.length;
+
+    averageContainer.textContent =
+      `⭐ ${average.toFixed(1)} / 5 (${approvedReviews.length} reviews)`;
+
+    approvedReviews.forEach((review) => {
+      const card = document.createElement("article");
+      card.className = "review-card";
+
+      const stars = document.createElement("div");
+      stars.className = "review-stars";
+      stars.textContent =
+        "★".repeat(review.rating) +
+        "☆".repeat(5 - review.rating);
+
+      const name = document.createElement("h3");
+      name.textContent = review.name;
+
+      const message = document.createElement("p");
+      message.textContent = review.message;
+
+      card.append(stars, name, message);
+      reviewContainer.appendChild(card);
+    });
+  }
+}
 
 </script>
 </body>

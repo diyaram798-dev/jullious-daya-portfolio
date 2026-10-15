@@ -62,6 +62,124 @@ nav a.active{color:#fcad03}
 .to-top:hover{border-color:#fcad03}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}.reveal{opacity:1;transform:none}}
 @media(max-width:650px){nav{flex-wrap:wrap}.menu-btn{display:block}.nav-links{display:none;width:100%;flex-direction:column;padding-top:12px}nav.open .nav-links{display:flex}nav a{margin:0;padding:10px 4px;font-size:16px}section{padding:70px 6%}.profile-container{width:165px;height:165px}}
+
+.reviews-section {
+  max-width: 650px;
+  margin: 40px auto;
+  padding: 30px 20px;
+  background: linear-gradient(135deg, #142f68, #5435a8);
+  color: white;
+  border-radius: 24px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.reviews-section h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.review-subtitle {
+  color: #e0e7ff;
+  margin-bottom: 25px;
+}
+
+#reviewForm {
+  background: white;
+  color: #172554;
+  padding: 22px;
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+}
+
+#reviewForm label {
+  font-weight: bold;
+}
+
+#reviewForm input:not([type="hidden"]),
+#reviewForm textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font: inherit;
+}
+
+#reviewForm textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.stars {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.star {
+  background: transparent;
+  border: none;
+  color: #cbd5e1;
+  font-size: 36px;
+  cursor: pointer;
+  padding: 0 2px;
+}
+
+.star.active {
+  color: #f4b400;
+}
+
+.star:focus-visible {
+  outline: 2px solid #5435a8;
+  border-radius: 5px;
+}
+
+#submitReview {
+  background: #142f68;
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#submitReview:hover {
+  background: #5435a8;
+}
+
+#submitReview:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+#reviewStatus {
+  text-align: center;
+  font-weight: bold;
+  overflow-wrap: anywhere;
+}
+
+.review-privacy {
+  text-align: center;
+  font-size: 12px;
+  color: #64748b;
+}
+
+@media (max-width: 480px) {
+  .reviews-section {
+    padding: 22px 12px;
+  }
+
+  #reviewForm {
+    padding: 16px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -70,6 +188,7 @@ nav a.active{color:#fcad03}
 <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
 <div class="nav-links">
 <a href="#about">About</a><a href="#skills">Skills</a><a href="#projects">Projects</a><a href="#journey">Journey</a><a href="#contact">Contact</a>
+<a href="#reviews">⭐ Reviews</a>
 </div></nav>
 
 <section class="hero"><div class="hero-content">
@@ -138,6 +257,73 @@ nav a.active{color:#fcad03}
 <a href="https://www.linkedin.com/in/daya-ram-4aa9a1440?utm_source=share_via&utm_content=profile&utm_medium=member_android" class="btn btn-outline">LinkedIn</a>
 </div></div></section>
 
+<section id="reviews" class="reviews-section">
+  <h2>⭐ Reviews & Feedback</h2>
+  <p class="review-subtitle">
+    Share your experience with my portfolio!
+  </p>
+
+  <form id="reviewForm"
+        action="https://formspree.io/f/mzedyzaq"
+        method="POST">
+
+    <label for="reviewName">Your Name</label>
+    <input
+      type="text"
+      id="reviewName"
+      name="name"
+      placeholder="Enter your name"
+      maxlength="80"
+      required
+    >
+
+    <label for="reviewEmail">Email (optional)</label>
+    <input
+      type="email"
+      id="reviewEmail"
+      name="email"
+      placeholder="Enter your email"
+    >
+
+    <label>Rate My Portfolio</label>
+    <div class="stars" role="group" aria-label="Choose a rating">
+      <button type="button" class="star" data-rating="1"
+              aria-label="1 star">★</button>
+      <button type="button" class="star" data-rating="2"
+              aria-label="2 stars">★</button>
+      <button type="button" class="star" data-rating="3"
+              aria-label="3 stars">★</button>
+      <button type="button" class="star" data-rating="4"
+              aria-label="4 stars">★</button>
+      <button type="button" class="star" data-rating="5"
+              aria-label="5 stars">★</button>
+    </div>
+
+    <input type="hidden" id="rating" name="rating" value="">
+
+    <label for="reviewMessage">Your Review</label>
+    <textarea
+      id="reviewMessage"
+      name="review"
+      placeholder="Write your feedback here..."
+      minlength="3"
+      maxlength="1500"
+      required
+    ></textarea>
+
+    <button type="submit" id="submitReview">
+      Submit Review →
+    </button>
+
+    <p id="reviewStatus" role="status" aria-live="polite"></p>
+
+    <p class="review-privacy">
+      🔒 Reviews are checked before publication.
+    </p>
+  </form>
+</section>
+
+
 <footer>
 <p>© 2026 <strong>Jullious Daya</strong>. Built with HTML, CSS & JavaScript.</p>
 <p>✨ Learning • Building • Growing 💫</p>
@@ -186,6 +372,75 @@ document.querySelectorAll('section[id]').forEach(s => spy.observe(s));
 const topBtn = document.getElementById('top');
 addEventListener('scroll', () => topBtn.classList.toggle('show', scrollY > 500));
 topBtn.addEventListener('click', () => scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }));
+
+const reviewForm = document.getElementById("reviewForm");
+const starButtons = document.querySelectorAll(".star");
+const ratingInput = document.getElementById("rating");
+const reviewStatus = document.getElementById("reviewStatus");
+const submitButton = document.getElementById("submitReview");
+
+let selectedRating = 0;
+
+function updateStars(rating) {
+  starButtons.forEach((star) => {
+    const value = Number(star.dataset.rating);
+    star.classList.toggle("active", value <= rating);
+    star.setAttribute("aria-pressed", String(value === rating));
+  });
+}
+
+starButtons.forEach((star) => {
+  star.addEventListener("click", () => {
+    selectedRating = Number(star.dataset.rating);
+    ratingInput.value = selectedRating;
+    updateStars(selectedRating);
+    reviewStatus.textContent = "";
+  });
+});
+
+reviewForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  if (!selectedRating) {
+    reviewStatus.textContent = "Please select a star rating.";
+    return;
+  }
+
+  if (!reviewForm.reportValidity()) return;
+
+  submitButton.disabled = true;
+  submitButton.textContent = "Submitting...";
+  reviewStatus.textContent = "";
+
+  try {
+    const response = await fetch(reviewForm.action, {
+      method: "POST",
+      body: new FormData(reviewForm),
+      headers: {
+        Accept: "application/json"
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error("Submission failed");
+    }
+
+    reviewForm.reset();
+    selectedRating = 0;
+    ratingInput.value = "";
+    updateStars(0);
+
+    reviewStatus.textContent =
+      "Thank you! Your review was submitted for approval.";
+  } catch (error) {
+    reviewStatus.textContent =
+      "Sorry, submission failed. Please try again.";
+  } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = "Submit Review →";
+  }
+});
+
 </script>
 </body>
 </html>

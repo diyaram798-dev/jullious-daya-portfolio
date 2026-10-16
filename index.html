@@ -484,6 +484,53 @@ const supabaseClient = window.supabase.createClient(
   SUPABASE_KEY
 );
 
+const reviewForm = document.getElementById("reviewForm");
+const reviewStatus = document.getElementById("reviewStatus");
+const submitButton = document.getElementById("submitReview");
+
+if (reviewForm) {
+  reviewForm.addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const name = document.getElementById("reviewName").value.trim();
+    const message = document.getElementById("reviewMessage").value.trim();
+
+    if (!name || message.length < 3) {
+      reviewStatus.textContent = "Please enter your name and a review.";
+      return;
+    }
+
+    submitButton.disabled = true;
+    reviewStatus.textContent = "Sending your review...";
+
+    const { error } = await supabaseClient
+      .from("reviews")
+      .insert([{
+        name: name,
+        message: message,
+        approved: false
+      }]);
+
+    submitButton.disabled = false;
+
+    if (error) {
+      console.error("Review submission failed:", error.message);
+      reviewStatus.textContent =
+        "Sorry, your review could not be sent. Please try again.";
+      return;
+    }
+
+    reviewForm.reset();
+    reviewStatus.textContent =
+      "Thank you! Your review was submitted for approval.";
+
+    document.querySelectorAll(".star").forEach(star => {
+      star.style.color = "";
+      star.setAttribute("aria-pressed", "false");
+    });
+  });
+}
+
 async function loadReviews() {
   const { data, error } = await supabaseClient
     .from("reviews")

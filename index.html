@@ -179,7 +179,7 @@ nav a.active{color:#fcad03}
 
 <section id="projects"><h2 class="section-title">My <span>Projects</span></h2>
 <div class="projects">
-<div class="project"><h3>Personal Portfolio</h3><p>A responsive personal website designed to showcase my skills, projects and learning journey.</p><span class="project-tag">HTML + CSS</span><a class="project-link" href="" target="_blank" rel="noopener noreferrer">View code ↗</a></div>
+<div class="project"><h3>Personal Portfolio</h3><p>A responsive personal website designed to showcase my skills, projects and learning journey.</p><span class="project-tag">HTML + CSS</span><span class="project-link">Project code coming soon</span></div>
 <div class="project"><h3>Student Profile</h3><p>A student profile project demonstrating HTML tables, forms, layouts and CSS styling.</p><span class="project-tag">HTML + CSS</span></div>
 <div class="project"><h3>Python Practice</h3><p>Programming exercises and experiments created while learning Python fundamentals.</p><span class="project-tag">Python</span></div>
 <div class="project"><h3>Future Projects</h3><p>More web development and programming projects will be added as I continue learning.</p><span class="project-tag">Coming Soon</span></div>
@@ -269,28 +269,23 @@ nav a.active{color:#fcad03}
 <!-- APPROVED REVIEWS -->
 <section id="approved-reviews" class="approved-reviews">
   <h2>⭐ What Visitors Say</h2>
-  <p class="reviews-intro">
-    Feedback from visitors to my portfolio.
-  </p>
-
-  <div class="review-card">
-    <div class="review-stars">★★★★★</div>
-    <h3>be first Visitor</h3>
-    <p>
-    I respect your reviews, your all reviews will be shown here. Just submit your reviews after my approval it will be published here.
-    </p>
+  <p class="reviews-intro">Feedback from visitors to my portfolio.</p>
+  <p id="average-rating" class="reviews-intro" aria-live="polite"></p>
+  <div id="approved-reviews-list" aria-live="polite">
+    <p class="reviews-intro">Loading approved reviews…</p>
   </div>
-  
-<section id="contact"><div class="contact">
-<h2 class="section-title">Let's <span>Connect</span></h2>
-<p>Explore my projects and follow my learning journey.</p>
-<div class="buttons">
-<a href="mailto:diyaram798@gmail.com" class="btn">Email Me</a>
-<a href="https://github.com/diyaram798-dev/jullious-daya-portfolio" class="btn btn-outline" target="_blank" rel="noopener noreferrer">GitHub</a>
-<a href="https://www.linkedin.com/in/daya-ram-4aa9a1440?utm_source=share_via&utm_content=profile&utm_medium=member_android" class="btn btn-outline" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-</div></div></section>
-  <!-- Add more approved review cards here -->
+</section>
 
+<section id="contact">
+  <div class="contact">
+    <h2 class="section-title">Let's <span>Connect</span></h2>
+    <p>Explore my projects and follow my learning journey.</p>
+    <div class="buttons">
+      <a href="mailto:diyaram798@gmail.com" class="btn">Email Me</a>
+      <a href="https://github.com/diyaram798-dev/jullious-daya-portfolio" class="btn btn-outline" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://www.linkedin.com/in/daya-ram-4aa9a1440?utm_source=share_via&utm_content=profile&utm_medium=member_android" class="btn btn-outline" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    </div>
+  </div>
 </section>
 <footer>
 <p>© 2026 <strong>Jullious Daya</strong>. Built with HTML, CSS & JavaScript.</p>
@@ -299,55 +294,124 @@ nav a.active{color:#fcad03}
 
 <button class="to-top" id="top" aria-label="Back to top">↑</button>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+"use strict";
 
-// 1) Mobile menu: open/close with the ☰ button
-const nav = document.querySelector('nav'), menuBtn = document.getElementById('menuBtn');
-function setMenu(open){ nav.classList.toggle('open', open); menuBtn.setAttribute('aria-expanded', open); }
-menuBtn.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
-document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-// 2) Typing effect on the hero subtitle (skipped if reduced motion is on)
-const sub = document.getElementById('typing');
-if (!reduce) {
-  const text = sub.textContent; let i = 0;
-  sub.setAttribute('aria-label', text); sub.textContent = ''; sub.classList.add('caret');
-  (function type(){
-    sub.textContent = text.slice(0, ++i);
-    if (i < text.length) setTimeout(type, 45);
-    else setTimeout(() => sub.classList.remove('caret'), 1500);
-  })();
+// Mobile navigation
+const nav = document.querySelector("nav");
+const menuBtn = document.getElementById("menuBtn");
+
+function setMenu(open) {
+  if (!nav || !menuBtn) return;
+  nav.classList.toggle("open", open);
+  menuBtn.setAttribute("aria-expanded", String(open));
+  menuBtn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
 }
 
-// 3) Fade-in when sections scroll into view
-const items = document.querySelectorAll('.section-title,.about-card,.skills,.projects,.journey,.contact p,.contact .buttons,.reviews-section');
-if (!reduce && 'IntersectionObserver' in window) {
-  const reveal = new IntersectionObserver(entries => entries.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('show'); reveal.unobserve(e.target); }
-  }), { threshold: .15 });
-  items.forEach(el => { el.classList.add('reveal'); reveal.observe(el); });
+if (nav && menuBtn) {
+  menuBtn.addEventListener("click", () => {
+    setMenu(!nav.classList.contains("open"));
+  });
+  document.querySelectorAll(".nav-links a").forEach((link) => {
+    link.addEventListener("click", () => setMenu(false));
+  });
 }
 
-// 4) Highlight the nav link of the section you are viewing
-const links = [...document.querySelectorAll('.nav-links a')];
-const spy = new IntersectionObserver(entries => entries.forEach(e => {
-  if (e.isIntersecting) links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
-}), { rootMargin: '-45% 0px -50% 0px' });
-document.querySelectorAll('section[id]').forEach(s => spy.observe(s));
+// Typing effect
+const subtitle = document.getElementById("typing");
+if (subtitle && !reduceMotion) {
+  const originalText = subtitle.textContent.trim();
+  let index = 0;
+  subtitle.setAttribute("aria-label", originalText);
+  subtitle.textContent = "";
+  subtitle.classList.add("caret");
 
-// 5) Back-to-top button
-const topBtn = document.getElementById('top');
-addEventListener('scroll', () => topBtn.classList.toggle('show', scrollY > 500));
-topBtn.addEventListener('click', () => scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }));
+  function typeNextCharacter() {
+    index += 1;
+    subtitle.textContent = originalText.slice(0, index);
+    if (index < originalText.length) {
+      window.setTimeout(typeNextCharacter, 45);
+    } else {
+      window.setTimeout(() => subtitle.classList.remove("caret"), 1500);
+    }
+  }
+  typeNextCharacter();
+}
 
+// Reveal elements as they enter the viewport
+const revealItems = document.querySelectorAll(
+  ".section-title, .about-card, .skills, .projects, .journey, .contact p, .contact .buttons, .reviews-section"
+);
+if (!reduceMotion && "IntersectionObserver" in window) {
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  revealItems.forEach((element) => {
+    element.classList.add("reveal");
+    revealObserver.observe(element);
+  });
+}
+
+// Highlight navigation based on the visible section
+if ("IntersectionObserver" in window) {
+  const navLinks = [...document.querySelectorAll(".nav-links a")];
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        navLinks.forEach((link) => {
+          link.classList.toggle(
+            "active",
+            link.getAttribute("href") === "#" + entry.target.id
+          );
+        });
+      }
+    });
+  }, { rootMargin: "-45% 0px -50% 0px" });
+
+  document.querySelectorAll("section[id]").forEach((section) => {
+    sectionObserver.observe(section);
+  });
+}
+
+// Back-to-top button
+const topButton = document.getElementById("top");
+if (topButton) {
+  window.addEventListener("scroll", () => {
+    topButton.classList.toggle("show", window.scrollY > 500);
+  });
+  topButton.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+  });
+}
+
+// Supabase review storage. The publishable key is intended for browser use;
+// protect the table with appropriate Supabase Row Level Security policies.
+const SUPABASE_URL = "https://gfmzvrndotxukqckqpon.supabase.co";
+const SUPABASE_KEY = "sb_publishable_xTUq18yHQa3NEUudHqpuhw_mTON6e2F";
 const reviewForm = document.getElementById("reviewForm");
-const starButtons = document.querySelectorAll(".star");
-const ratingInput = document.getElementById("rating");
 const reviewStatus = document.getElementById("reviewStatus");
 const submitButton = document.getElementById("submitReview");
-
+const ratingInput = document.getElementById("rating");
+const starButtons = [...document.querySelectorAll(".star")];
+const reviewList = document.getElementById("approved-reviews-list");
+const averageRating = document.getElementById("average-rating");
 let selectedRating = 0;
+let supabaseClient = null;
+
+function setReviewStatus(message, type = "") {
+  if (!reviewStatus) return;
+  reviewStatus.textContent = message;
+  reviewStatus.className = type;
+}
 
 function updateStars(rating) {
   starButtons.forEach((star) => {
@@ -358,219 +422,141 @@ function updateStars(rating) {
 }
 
 starButtons.forEach((star) => {
+  star.setAttribute("aria-pressed", "false");
   star.addEventListener("click", () => {
     selectedRating = Number(star.dataset.rating);
-    ratingInput.value = selectedRating;
+    if (ratingInput) ratingInput.value = String(selectedRating);
     updateStars(selectedRating);
-    reviewStatus.textContent = "";
-    reviewStatus.className = "";
+    setReviewStatus("");
   });
 });
 
-reviewForm.addEventListener("submit", async (event) => {
-  event.preventDefault();
+function renderApprovedReviews(reviews) {
+  if (!reviewList || !averageRating) return;
+  reviewList.replaceChildren();
 
-  if (!selectedRating) {
-    reviewStatus.textContent = "Choose a star rating before sending.";
-    reviewStatus.className = "error";
+  if (!reviews.length) {
+    averageRating.textContent = "No approved reviews yet.";
+    const emptyMessage = document.createElement("p");
+    emptyMessage.className = "reviews-intro";
+    emptyMessage.textContent = "Be the first visitor to leave a review.";
+    reviewList.appendChild(emptyMessage);
     return;
   }
 
-  if (!reviewForm.reportValidity()) return;
+  const total = reviews.reduce((sum, review) => sum + Number(review.rating || 0), 0);
+  const average = total / reviews.length;
+  averageRating.textContent = `⭐ ${average.toFixed(1)} / 5 (${reviews.length} review${reviews.length === 1 ? "" : "s"})`;
 
-  submitButton.disabled = true;
-  submitButton.textContent = "Submitting...";
-  reviewStatus.textContent = "";
-
-  try {
-    const response = await fetch(reviewForm.action, {
-      method: "POST",
-      body: new FormData(reviewForm),
-      headers: {
-        Accept: "application/json"
-      }
-    });
-
-    if (!response.ok) {
-      throw new Error("Submission failed");
-    }
-
-    reviewForm.reset();
-    selectedRating = 0;
-    ratingInput.value = "";
-    updateStars(0);
-
-    reviewStatus.className = "ok";
-    reviewStatus.textContent =
-      "Thank you! Your review was sent. I will read it before it is published.";
-  } catch (error) {
-    reviewStatus.className = "error";
-    reviewStatus.textContent =
-      "Your review was not sent. Check your connection and try again.";
-  } finally {
-    submitButton.disabled = false;
-    submitButton.textContent = "Send review";
-  }
-});
-
-const approvedReviews = [
-  {
-    name: "Example Visitor",
-    rating: 5,
-    message: "A clean and impressive personal portfolio!"
-  },
-  {
-    name: "Another Visitor",
-    rating: 4,
-    message: "I enjoyed exploring the projects and design."
-  }
-];
-
-// Display approved reviews
-const reviewContainer =
-  document.getElementById("approved-reviews-list");
-
-const averageContainer =
-  document.getElementById("average-rating");
-
-if (reviewContainer && averageContainer) {
-  reviewContainer.replaceChildren();
-
-  if (approvedReviews.length === 0) {
-    reviewContainer.textContent = "No reviews published yet.";
-  } else {
-    const total = approvedReviews.reduce(
-      (sum, review) => sum + review.rating, 0
-    );
-
-    const average = total / approvedReviews.length;
-
-    averageContainer.textContent =
-      `⭐ ${average.toFixed(1)} / 5 (${approvedReviews.length} reviews)`;
-
-    approvedReviews.forEach((review) => {
-      const card = document.createElement("article");
-      card.className = "review-card";
-
-      const stars = document.createElement("div");
-      stars.className = "review-stars";
-      stars.textContent =
-        "★".repeat(review.rating) +
-        "☆".repeat(5 - review.rating);
-
-      const name = document.createElement("h3");
-      name.textContent = review.name;
-
-      const message = document.createElement("p");
-      message.textContent = review.message;
-
-      card.append(stars, name, message);
-      reviewContainer.appendChild(card);
-    });
-  }
-}
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
-const SUPABASE_URL = "https://gfmzvrndotxukqckqpon.supabase.co";
-const SUPABASE_KEY = "sb_publishable_xTUq18yHQa3NEUudHqpuhw_mTON6e2F";
-
-const supabaseClient = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
-
-const reviewForm = document.getElementById("reviewForm");
-const reviewStatus = document.getElementById("reviewStatus");
-const submitButton = document.getElementById("submitReview");
-
-if (reviewForm) {
-  reviewForm.addEventListener("submit", async function(event) {
-    event.preventDefault();
-
-    const name = document.getElementById("reviewName").value.trim();
-    const message = document.getElementById("reviewMessage").value.trim();
-
-    if (!name || message.length < 3) {
-      reviewStatus.textContent = "Please enter your name and a review.";
-      return;
-    }
-
-    submitButton.disabled = true;
-    reviewStatus.textContent = "Sending your review...";
-
-    const { error } = await supabaseClient
-      .from("reviews")
-      .insert([{
-        name: name,
-        message: message,
-        approved: false
-      }]);
-
-    submitButton.disabled = false;
-
-    if (error) {
-      console.error("Review submission failed:", error.message);
-      reviewStatus.textContent =
-        "Sorry, your review could not be sent. Please try again.";
-      return;
-    }
-
-    reviewForm.reset();
-    reviewStatus.textContent =
-      "Thank you! Your review was submitted for approval.";
-
-    document.querySelectorAll(".star").forEach(star => {
-      star.style.color = "";
-      star.setAttribute("aria-pressed", "false");
-    });
-  });
-}
-
-async function loadReviews() {
-  const { data, error } = await supabaseClient
-    .from("reviews")
-    .select("name, message")
-    .eq("approved", true);
-
-  if (error) {
-    console.error("Could not load reviews:", error.message);
-    return;
-  }
-
-  const section = document.getElementById("approved-reviews");
-  if (!section) return;
-
-  section.innerHTML = "<h2>⭐ What Visitors Say</h2>";
-
-  if (!data || data.length === 0) {
-    section.innerHTML += "<p>Be the first visitor to leave a review!</p>";
-    return;
-  }
-
-  data.forEach(review => {
-    const card = document.createElement("div");
+  reviews.forEach((review) => {
+    const card = document.createElement("article");
     card.className = "review-card";
 
     const stars = document.createElement("div");
     stars.className = "review-stars";
-    stars.textContent = "★★★★★";
+    const rating = Math.max(0, Math.min(5, Number(review.rating) || 0));
+    stars.textContent = "★".repeat(rating) + "☆".repeat(5 - rating);
+    stars.setAttribute("aria-label", `${rating} out of 5 stars`);
 
     const heading = document.createElement("h3");
-    heading.textContent = review.name;
+    heading.textContent = review.name || "Visitor";
 
     const message = document.createElement("p");
-    message.textContent = review.message;
+    message.textContent = review.message || "";
 
     card.append(stars, heading, message);
-    section.appendChild(card);
+    reviewList.appendChild(card);
   });
 }
 
-loadReviews();
+async function loadApprovedReviews() {
+  if (!supabaseClient) {
+    if (reviewList) reviewList.textContent = "Reviews are temporarily unavailable.";
+    return;
+  }
+
+  const { data, error } = await supabaseClient
+    .from("reviews")
+    .select("name, message, rating")
+    .eq("approved", true)
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Could not load approved reviews:", error.message);
+    if (reviewList) reviewList.textContent = "Could not load reviews right now.";
+    return;
+  }
+  renderApprovedReviews(data || []);
+}
+
+if (window.supabase && typeof window.supabase.createClient === "function") {
+  supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+} else {
+  setReviewStatus("Review service could not be loaded. Please try again later.", "error");
+}
+
+if (reviewForm) {
+  reviewForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    if (!supabaseClient) {
+      setReviewStatus("Review service is unavailable. Please try again later.", "error");
+      return;
+    }
+
+    if (!reviewForm.reportValidity()) return;
+
+    const name = document.getElementById("reviewName")?.value.trim() || "";
+    const message = document.getElementById("reviewMessage")?.value.trim() || "";
+    const email = document.getElementById("reviewEmail")?.value.trim() || "";
+
+    if (!name || message.length < 3) {
+      setReviewStatus("Please enter your name and a review of at least 3 characters.", "error");
+      return;
+    }
+    if (!selectedRating) {
+      setReviewStatus("Choose a star rating before sending.", "error");
+      return;
+    }
+
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = "Submitting…";
+    }
+    setReviewStatus("Sending your review…");
+
+    try {
+      const review = {
+        name,
+        message,
+        rating: selectedRating,
+        approved: false
+      };
+      // Email is intentionally not stored by default.
+      void email;
+
+      const { error } = await supabaseClient.from("reviews").insert([review]);
+      if (error) throw error;
+
+      reviewForm.reset();
+      selectedRating = 0;
+      if (ratingInput) ratingInput.value = "";
+      updateStars(0);
+      setReviewStatus("Thank you! Your review was submitted for approval.", "ok");
+    } catch (error) {
+      console.error("Review submission failed:", error.message);
+      setReviewStatus("Your review could not be sent. Please try again.", "error");
+    } finally {
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = "Send review";
+      }
+    }
+  });
+}
+
+loadApprovedReviews();
 </script>
 
-</script>
 </body>
 </html>

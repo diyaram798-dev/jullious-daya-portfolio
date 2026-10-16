@@ -473,6 +473,60 @@ if (reviewContainer && averageContainer) {
   }
 }
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "https://gfmzvrndotxukqckqpon.supabase.co";
+const SUPABASE_KEY = "sb_publishable_xTUq18yHQa3NEUudHqpuhw_mTON6e2F";
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+async function loadReviews() {
+  const { data, error } = await supabaseClient
+    .from("reviews")
+    .select("name, message")
+    .eq("approved", true);
+
+  if (error) {
+    console.error("Could not load reviews:", error.message);
+    return;
+  }
+
+  const section = document.getElementById("approved-reviews");
+  if (!section) return;
+
+  section.innerHTML = "<h2>⭐ What Visitors Say</h2>";
+
+  if (!data || data.length === 0) {
+    section.innerHTML += "<p>Be the first visitor to leave a review!</p>";
+    return;
+  }
+
+  data.forEach(review => {
+    const card = document.createElement("div");
+    card.className = "review-card";
+
+    const stars = document.createElement("div");
+    stars.className = "review-stars";
+    stars.textContent = "★★★★★";
+
+    const heading = document.createElement("h3");
+    heading.textContent = review.name;
+
+    const message = document.createElement("p");
+    message.textContent = review.message;
+
+    card.append(stars, heading, message);
+    section.appendChild(card);
+  });
+}
+
+loadReviews();
+</script>
+
 </script>
 </body>
 </html>

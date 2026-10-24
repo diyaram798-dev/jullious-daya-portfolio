@@ -39,10 +39,15 @@ section{padding:100px 8%}.section-title{text-align:center;font-size:38px;margin-
 .skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:20px;max-width:1000px;margin:auto}
 .skill{padding:30px 20px;text-align:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:22px;transition:.3s}
 .skill:hover{transform:translateY(-8px);border-color:#fcad03;box-shadow:0 15px 35px rgba(0,0,0,.25)}.skill-icon{font-size:40px;margin-bottom:15px}.skill h3{margin-bottom:8px}.skill p{color:#9da8bd}
-.projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:25px;max-width:1100px;margin:auto}
-.project{padding:30px;background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.10);border-radius:25px;transition:.3s}
-.project:hover{transform:translateY(-8px);border-color:rgba(252,173,3,.5)}.project h3{color:#fcad03;margin-bottom:12px}.project p{color:#aeb8ca;line-height:1.7}
-.project-tag{display:inline-block;margin-top:20px;padding:6px 12px;border-radius:20px;font-size:12px;background:rgba(252,173,3,.12);color:#fcad03}
+.projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:26px;max-width:1120px;margin:auto}
+.project{overflow:hidden;position:relative;padding:0;background:linear-gradient(145deg,rgba(20,27,49,.96),rgba(8,12,27,.96));border:1px solid rgba(255,255,255,.12);border-radius:24px;transition:transform .3s,border-color .3s,box-shadow .3s;box-shadow:0 18px 45px rgba(0,0,0,.18)}
+.project:hover{transform:translateY(-7px);border-color:rgba(252,173,3,.55);box-shadow:0 24px 55px rgba(0,0,0,.32)}
+.project-preview{height:190px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 75% 15%,rgba(120,76,255,.30),transparent 42%),linear-gradient(135deg,#101a34,#090d1d)}
+.project-preview::before{content:"";position:absolute;width:72%;height:115px;border:1px solid rgba(255,255,255,.18);border-radius:12px;background:rgba(255,255,255,.055);box-shadow:0 14px 35px rgba(0,0,0,.28);transform:rotate(-5deg)}
+.preview-window{position:relative;z-index:1;width:66%;padding:14px;border-radius:9px;background:rgba(5,8,22,.92);border:1px solid rgba(255,255,255,.13);transform:rotate(-5deg)}
+.preview-dots{display:flex;gap:4px;margin-bottom:12px}.preview-dots i{width:6px;height:6px;border-radius:50%;background:#fcad03}.preview-line{height:6px;border-radius:5px;margin:7px 0;background:linear-gradient(90deg,rgba(252,173,3,.9),rgba(120,76,255,.7),rgba(255,255,255,.12))}.preview-line.short{width:48%}.preview-line.mid{width:72%}
+.project-preview.student{background:radial-gradient(circle at 25% 20%,rgba(0,212,255,.24),transparent 45%),linear-gradient(135deg,#101a34,#090d1d)}.project-preview.python{background:radial-gradient(circle at 75% 15%,rgba(252,173,3,.22),transparent 42%),linear-gradient(135deg,#101a34,#090d1d)}.project-preview.future{background:radial-gradient(circle at 50% 50%,rgba(255,78,205,.18),transparent 50%),linear-gradient(135deg,#101a34,#090d1d)}
+.project-body{padding:24px}.project h3{color:#fff;margin-bottom:10px;font-size:21px}.project p{color:#aeb8ca;line-height:1.7;font-size:14px;min-height:72px}.project-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:17px}.project-tag{display:inline-block;padding:6px 10px;border-radius:20px;font-size:11px;background:rgba(252,173,3,.10);border:1px solid rgba(252,173,3,.18);color:#ffd16a}.project-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}.project-action{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:10px 14px;border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;background:#fcad03;color:#080b16;transition:.2s}.project-action:hover{transform:translateY(-2px);filter:brightness(1.08)}.project-action.secondary{background:rgba(255,255,255,.05);color:#e8edf8;border:1px solid rgba(255,255,255,.16)}.project-action.unavailable{color:#8994a9;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);cursor:default}
 .journey{max-width:800px;margin:auto}.journey-item{border-left:2px solid #fcad03;padding:0 0 35px 30px;position:relative}
 .journey-item::before{content:"";width:12px;height:12px;background:#fcad03;border-radius:50%;position:absolute;left:-7px;top:5px;box-shadow:0 0 15px #fcad03}
 .journey-item h3{margin-bottom:8px}.journey-item p{color:#9da8bd}
@@ -132,6 +137,71 @@ nav a.active{color:#fcad03}
   .approved-reviews {padding: 18px 12px;}
   .review-card {padding: 17px;}
 }
+
+/* ===== Premium visitor reviews refresh (visual-only; Supabase logic unchanged) ===== */
+#reviews.reviews-section,
+#approved-reviews.approved-reviews{
+  width:min(100% - 32px, 980px); max-width:980px; margin:54px auto 30px;
+  padding:clamp(24px,4vw,46px); position:relative; overflow:hidden; isolation:isolate;
+  text-align:left; color:#f8fafc; border-radius:28px;
+  border:1px solid rgba(255,255,255,.13);
+  background:linear-gradient(145deg,rgba(19,27,49,.94),rgba(7,11,26,.94));
+  box-shadow:0 24px 70px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.05);
+  backdrop-filter:blur(18px);
+}
+#reviews.reviews-section::before,#approved-reviews.approved-reviews::before{
+  content:""; position:absolute; z-index:-1; width:300px; height:300px; right:-125px; top:-170px;
+  border-radius:50%; background:rgba(120,76,255,.18); filter:blur(5px); pointer-events:none;
+}
+#reviews .review-heading,#approved-reviews .approved-heading{display:flex;align-items:flex-start;gap:15px;margin-bottom:24px}
+.review-heading-icon{display:grid;place-items:center;flex:0 0 52px;height:52px;border-radius:17px;
+  color:#101525;background:linear-gradient(135deg,#ffe08a,#fcad03);font-size:25px;box-shadow:0 10px 28px rgba(252,173,3,.18)}
+#reviews h2,#approved-reviews h2{font-size:clamp(25px,4vw,34px);line-height:1.15;letter-spacing:-.7px;margin:2px 0 8px;color:#fff}
+#reviews .review-subtitle,#approved-reviews .reviews-intro{color:#aeb8cc;line-height:1.7;margin:0;font-size:14px}
+#reviewForm{gap:10px}
+#reviewForm label{font-size:13px;letter-spacing:.2px;color:#dbe4f4;margin-top:6px}
+#reviewForm input:not([type="hidden"]),#reviewForm textarea{
+  padding:15px 16px;background:rgba(4,8,20,.68);border:1px solid rgba(180,194,220,.19);border-radius:14px;
+  color:#f8fafc;font-size:15px;transition:border-color .2s,box-shadow .2s,background .2s
+}
+#reviewForm input:not([type="hidden"]):focus,#reviewForm textarea:focus{outline:none;border-color:rgba(252,173,3,.75);box-shadow:0 0 0 4px rgba(252,173,3,.10);background:rgba(4,8,20,.9)}
+#reviewForm textarea{min-height:135px;line-height:1.65}
+#reviewForm .stars{justify-content:flex-start;gap:7px;margin:1px 0 5px}
+#reviewForm .star{width:42px;height:42px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.12);border-radius:12px;background:rgba(255,255,255,.04);font-size:27px;color:#667085;transition:transform .2s,border-color .2s,background .2s,color .2s}
+#reviewForm .star:hover{transform:translateY(-2px);border-color:rgba(252,173,3,.5)}
+#reviewForm .star.active{color:#fcad03;background:rgba(252,173,3,.10);border-color:rgba(252,173,3,.32);text-shadow:0 0 18px rgba(252,173,3,.25)}
+#submitReview{display:flex;align-items:center;justify-content:center;gap:9px;margin-top:8px;padding:15px 20px;border-radius:14px;background:linear-gradient(100deg,#ffd56a,#fcad03);color:#111827;font-weight:800;letter-spacing:.1px;box-shadow:0 10px 28px rgba(252,173,3,.13)}
+#submitReview::after{content:"↗";font-size:18px}#submitReview:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(252,173,3,.22)}
+#reviewStatus{padding-top:4px;font-size:14px}#reviews .review-privacy{font-size:12px;line-height:1.6;color:#8995aa;margin-top:3px}
+#approved-reviews{margin-top:24px}
+#approved-reviews .approved-heading{align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:20px}
+#approved-reviews .approved-title-group{display:flex;align-items:center;gap:14px}
+#approved-reviews .review-summary{display:inline-flex;align-items:center;gap:8px;padding:10px 13px;border-radius:14px;background:rgba(252,173,3,.09);border:1px solid rgba(252,173,3,.20);color:#ffe08a;font-weight:800;font-size:14px}
+#average-rating{display:inline-block;margin:0 0 20px;padding:9px 13px;border:1px solid rgba(255,255,255,.1);border-radius:12px;background:rgba(255,255,255,.045);color:#f4d17b;font-size:13px;font-weight:700}
+#approved-reviews-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:stretch;padding:4px 0 8px;}
+#approved-reviews-list:focus-visible{outline:2px solid rgba(252,173,3,.7);outline-offset:3px;border-radius:12px}
+.review-pagination{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,.09)}
+.review-pagination button{border:1px solid rgba(255,255,255,.15);border-radius:11px;padding:10px 14px;background:rgba(255,255,255,.055);color:#f8fafc;font:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:background .2s,border-color .2s,opacity .2s}
+.review-pagination button:hover:not(:disabled){background:rgba(252,173,3,.12);border-color:rgba(252,173,3,.45)}
+.review-pagination button:disabled{opacity:.35;cursor:not-allowed}
+.review-page-info{color:#aeb8cc;font-size:13px;font-variant-numeric:tabular-nums}
+.review-card .review-message{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+.review-card .review-message.expanded{display:block;overflow:visible}
+.review-read-more{align-self:flex-start;padding:0;border:0;background:transparent;color:#ffd56a;font:inherit;font-size:12px;font-weight:800;cursor:pointer}
+#approved-reviews-list>.reviews-intro{grid-column:1/-1;padding:22px;border:1px dashed rgba(255,255,255,.16);border-radius:18px;background:rgba(255,255,255,.025)}
+.review-card{position:relative;display:flex;flex-direction:column;gap:12px;margin:0;padding:23px 21px;min-width:0;border-radius:20px;
+  background:linear-gradient(145deg,rgba(28,38,64,.88),rgba(13,19,37,.92));border:1px solid rgba(255,255,255,.10);
+  box-shadow:0 12px 32px rgba(0,0,0,.16);transition:transform .25s,border-color .25s,box-shadow .25s;overflow:hidden}
+.review-card::before{content:"“";position:absolute;right:17px;top:5px;font-family:Georgia,serif;font-size:64px;line-height:1;color:rgba(252,173,3,.13);pointer-events:none}
+.review-card:hover{transform:translateY(-4px);border-color:rgba(252,173,3,.28);box-shadow:0 18px 38px rgba(0,0,0,.25)}
+.review-stars{position:relative;z-index:1;color:#fcad03;font-size:18px;letter-spacing:3px}
+.review-card h3{font-size:15px;line-height:1.4;color:#fff;margin:0;padding-left:12px;position:relative}
+.review-card h3::before{content:"";position:absolute;left:0;top:3px;bottom:3px;width:3px;border-radius:4px;background:linear-gradient(#fcad03,#ff4ecd)}
+.review-card p{color:#b9c4d8;font-size:14px;line-height:1.8;overflow-wrap:anywhere;white-space:pre-wrap;margin:0}
+@media(max-width:760px){#approved-reviews-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){#reviews.reviews-section,#approved-reviews.approved-reviews{width:calc(100% - 24px);padding:23px 17px;border-radius:22px;margin-top:30px}#reviews .review-heading{gap:12px}.review-heading-icon{flex-basis:45px;height:45px;border-radius:14px}#approved-reviews .approved-heading{align-items:flex-start}#approved-reviews-list{grid-template-columns:1fr}.review-card{padding:18px 16px}#reviewForm .star{width:39px;height:39px}.review-pagination{gap:8px}.review-pagination button{padding:9px 11px}}
+@media(prefers-reduced-motion:reduce){.review-card,#reviewForm .star,#submitReview{transition:none}}
+
 </style>
 </head>
 <body>
@@ -177,12 +247,25 @@ nav a.active{color:#fcad03}
 <div class="skill"><div class="skill-icon">✨</div><h3>UI Design</h3><p>Creative Interfaces</p><span class="level">Learning</span></div>
 </div></section>
 
-<section id="projects"><h2 class="section-title">My <span>Projects</span></h2>
+<section id="projects"><h2 class="section-title">Featured <span>Projects</span></h2>
+<p style="max-width:680px;margin:-28px auto 38px;text-align:center;color:#9da8bd;line-height:1.8">A selection of projects from my learning journey. Open the live portfolio or explore the source code; more demos will be added as they are published.</p>
 <div class="projects">
-<div class="project"><h3>Personal Portfolio</h3><p>A responsive personal website designed to showcase my skills, projects and learning journey.</p><span class="project-tag">HTML + CSS</span><span class="project-link">Project code coming soon</span></div>
-<div class="project"><h3>Student Profile</h3><p>A student profile project demonstrating HTML tables, forms, layouts and CSS styling.</p><span class="project-tag">HTML + CSS</span></div>
-<div class="project"><h3>Python Practice</h3><p>Programming exercises and experiments created while learning Python fundamentals.</p><span class="project-tag">Python</span></div>
-<div class="project"><h3>Future Projects</h3><p>More web development and programming projects will be added as I continue learning.</p><span class="project-tag">Coming Soon</span></div>
+<article class="project">
+  <div class="project-preview" aria-hidden="true"><div class="preview-window"><div class="preview-dots"><i></i><i></i><i></i></div><div class="preview-line short"></div><div class="preview-line"></div><div class="preview-line mid"></div></div></div>
+  <div class="project-body"><h3>Personal Portfolio</h3><p>A responsive portfolio featuring my introduction, skills, projects, contact details, and a visitor review system.</p><div class="project-meta"><span class="project-tag">HTML</span><span class="project-tag">CSS</span><span class="project-tag">JavaScript</span><span class="project-tag">Supabase</span></div><div class="project-actions"><a class="project-action" href="https://diyaram798-dev.github.io/jullious-daya-portfolio/" target="_blank" rel="noopener noreferrer" aria-label="View live portfolio demo">↗ Live Demo</a><a class="project-action secondary" href="https://github.com/diyaram798-dev/jullious-daya-portfolio" target="_blank" rel="noopener noreferrer">⌘ Source Code</a></div></div>
+</article>
+<article class="project">
+  <div class="project-preview student" aria-hidden="true"><div class="preview-window"><div class="preview-dots"><i></i><i></i><i></i></div><div class="preview-line mid"></div><div class="preview-line short"></div><div class="preview-line"></div></div></div>
+  <div class="project-body"><h3>Student Profile</h3><p>A practice website exploring structured content, forms, layouts, and CSS styling.</p><div class="project-meta"><span class="project-tag">HTML</span><span class="project-tag">CSS</span><span class="project-tag">Responsive UI</span></div><div class="project-actions"><span class="project-action unavailable" aria-label="Live demo not published yet">Demo coming soon</span></div></div>
+</article>
+<article class="project">
+  <div class="project-preview python" aria-hidden="true"><div class="preview-window"><div class="preview-dots"><i></i><i></i><i></i></div><div class="preview-line short"></div><div class="preview-line mid"></div><div class="preview-line short"></div></div></div>
+  <div class="project-body"><h3>Python Practice</h3><p>Small programming exercises and experiments as I build confidence with Python fundamentals.</p><div class="project-meta"><span class="project-tag">Python</span><span class="project-tag">Problem Solving</span></div><div class="project-actions"><span class="project-action unavailable" aria-label="Demo not published yet">Demo coming soon</span></div></div>
+</article>
+<article class="project">
+  <div class="project-preview future" aria-hidden="true"><div class="preview-window"><div class="preview-dots"><i></i><i></i><i></i></div><div class="preview-line"></div><div class="preview-line short"></div><div class="preview-line mid"></div></div></div>
+  <div class="project-body"><h3>Next Project</h3><p>I'm building new projects to practice web development and create useful, user-friendly experiences.</p><div class="project-meta"><span class="project-tag">In Progress</span></div><div class="project-actions"><span class="project-action unavailable">Coming soon</span></div></div>
+</article>
 </div></section>
 
 <section id="journey"><h2 class="section-title">My <span>Learning Journey</span></h2>
@@ -202,10 +285,11 @@ nav a.active{color:#fcad03}
 </div></section>
 
 <section id="reviews" class="reviews-section">
-  <h2>⭐ Reviews & Feedback</h2>
-  <p class="review-subtitle">
-    Share your experience with my portfolio!
-  </p>
+  <div class="review-heading">
+    <div class="review-heading-icon" aria-hidden="true">✦</div>
+    <div><h2>Share Your <span style="color:#fcad03">Feedback</span></h2>
+    <p class="review-subtitle">Enjoyed exploring my portfolio? Leave a rating and tell me what you think.</p></div>
+  </div>
 
 <form id="reviewForm">
     <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;opacity:0">
@@ -268,12 +352,18 @@ nav a.active{color:#fcad03}
 
 <!-- APPROVED REVIEWS -->
 <section id="approved-reviews" class="approved-reviews">
-  <h2>⭐ What Visitors Say</h2>
-  <p class="reviews-intro">Feedback from visitors to my portfolio.</p>
-  <p id="average-rating" class="reviews-intro" aria-live="polite"></p>
-  <div id="approved-reviews-list" aria-live="polite">
+  <div class="approved-heading">
+    <div class="approved-title-group"><div class="review-heading-icon" aria-hidden="true">❝</div><div><h2>Kind Words</h2><p class="reviews-intro">A few thoughts from visitors to my portfolio.</p></div></div>
+  </div>
+  <p id="average-rating" aria-live="polite">Loading rating…</p>
+  <div id="approved-reviews-list" aria-live="polite" role="region" aria-label="Approved visitor reviews" tabindex="0">
     <p class="reviews-intro">Loading approved reviews…</p>
   </div>
+  <nav id="review-pagination" class="review-pagination" aria-label="Review pages" hidden>
+    <button type="button" id="reviews-prev" disabled>← Previous</button>
+    <span id="reviews-page-info" class="review-page-info" aria-live="polite">Page 1 of 1</span>
+    <button type="button" id="reviews-next" disabled>Next →</button>
+  </nav>
 </section>
 
 <section id="contact">
@@ -431,12 +521,22 @@ starButtons.forEach((star) => {
   });
 });
 
+let approvedReviews = [];
+let currentReviewPage = 1;
+const REVIEWS_PER_PAGE = 6; // Six reviews per page; fewer on the final page.
+const pagination = document.getElementById("review-pagination");
+const previousReviewsButton = document.getElementById("reviews-prev");
+const nextReviewsButton = document.getElementById("reviews-next");
+const reviewPageInfo = document.getElementById("reviews-page-info");
+
 function renderApprovedReviews(reviews) {
   if (!reviewList || !averageRating) return;
+  approvedReviews = Array.isArray(reviews) ? reviews : [];
   reviewList.replaceChildren();
 
-  if (!reviews.length) {
+  if (!approvedReviews.length) {
     averageRating.textContent = "No approved reviews yet.";
+    if (pagination) pagination.hidden = true;
     const emptyMessage = document.createElement("p");
     emptyMessage.className = "reviews-intro";
     emptyMessage.textContent = "Be the first visitor to leave a review.";
@@ -444,11 +544,16 @@ function renderApprovedReviews(reviews) {
     return;
   }
 
-  const total = reviews.reduce((sum, review) => sum + Number(review.rating || 0), 0);
-  const average = total / reviews.length;
-  averageRating.textContent = `⭐ ${average.toFixed(1)} / 5 (${reviews.length} review${reviews.length === 1 ? "" : "s"})`;
+  const total = approvedReviews.reduce((sum, review) => sum + Number(review.rating || 0), 0);
+  const average = total / approvedReviews.length;
+  averageRating.textContent = `⭐ ${average.toFixed(1)} / 5 (${approvedReviews.length} approved review${approvedReviews.length === 1 ? "" : "s"})`;
 
-  reviews.forEach((review) => {
+  const totalPages = Math.ceil(approvedReviews.length / REVIEWS_PER_PAGE);
+  currentReviewPage = Math.min(Math.max(1, currentReviewPage), totalPages);
+  const start = (currentReviewPage - 1) * REVIEWS_PER_PAGE;
+  const pageReviews = approvedReviews.slice(start, start + REVIEWS_PER_PAGE);
+
+  pageReviews.forEach((review) => {
     const card = document.createElement("article");
     card.className = "review-card";
 
@@ -462,10 +567,50 @@ function renderApprovedReviews(reviews) {
     heading.textContent = review.name || "Visitor";
 
     const message = document.createElement("p");
+    message.className = "review-message";
     message.textContent = review.message || "";
 
     card.append(stars, heading, message);
+    if ((review.message || "").length > 150) {
+      const readMore = document.createElement("button");
+      readMore.type = "button";
+      readMore.className = "review-read-more";
+      readMore.textContent = "Read more";
+      readMore.setAttribute("aria-expanded", "false");
+      readMore.addEventListener("click", () => {
+        const expanded = message.classList.toggle("expanded");
+        readMore.textContent = expanded ? "Show less" : "Read more";
+        readMore.setAttribute("aria-expanded", String(expanded));
+      });
+      card.appendChild(readMore);
+    }
     reviewList.appendChild(card);
+  });
+
+  if (pagination && previousReviewsButton && nextReviewsButton && reviewPageInfo) {
+    pagination.hidden = totalPages <= 1;
+    previousReviewsButton.disabled = currentReviewPage === 1;
+    nextReviewsButton.disabled = currentReviewPage === totalPages;
+    reviewPageInfo.textContent = `Page ${currentReviewPage} of ${totalPages}`;
+  }
+}
+
+if (previousReviewsButton) {
+  previousReviewsButton.addEventListener("click", () => {
+    if (currentReviewPage > 1) {
+      currentReviewPage -= 1;
+      renderApprovedReviews(approvedReviews);
+      document.getElementById("approved-reviews")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  });
+}
+if (nextReviewsButton) {
+  nextReviewsButton.addEventListener("click", () => {
+    if (currentReviewPage < Math.ceil(approvedReviews.length / REVIEWS_PER_PAGE)) {
+      currentReviewPage += 1;
+      renderApprovedReviews(approvedReviews);
+      document.getElementById("approved-reviews")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   });
 }
 

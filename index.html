@@ -157,6 +157,257 @@ nav a.active{color:#fcad03}
 @media(max-width:600px){#reviews.reviews-section,#approved-reviews.approved-reviews{width:calc(100% - 24px);padding:23px 17px;border-radius:22px;margin-top:30px}#reviews .review-heading{gap:12px}.review-heading-icon{flex-basis:45px;height:45px;border-radius:14px}#approved-reviews .approved-heading{align-items:flex-start}#approved-reviews-list{grid-template-columns:1fr}.review-card{padding:18px 16px}#reviewForm .star{width:39px;height:39px}.review-pagination{gap:8px}.review-pagination button{padding:9px 11px}}
 @media(prefers-reduced-motion:reduce){.review-card,#reviewForm .star,#submitReview{transition:none}}
 
+/* SMART PORTFOLIO STUDIO */
+
+#smart-studio {
+  max-width: 1050px;
+  margin: 35px auto;
+  padding: 0 14px;
+  font-family: Arial, sans-serif;
+  color: #f5f5ff;
+}
+
+#studio-toggle {
+  display: block;
+  margin: 0 auto;
+  padding: 13px 28px;
+  border: 0;
+  border-radius: 12px;
+  background: #7966ff;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#studio-toggle:hover,
+#smart-studio button:hover {
+  opacity: .88;
+  transform: translateY(-1px);
+}
+
+#studio-content[hidden] {
+  display: none !important;
+}
+
+#studio-content {
+  margin-top: 25px;
+  padding: clamp(16px, 4vw, 35px);
+  border: 1px solid #343653;
+  border-radius: 22px;
+  background: #0d1020;
+  scroll-margin-top: 20px;
+}
+
+#smart-studio * {
+  box-sizing: border-box;
+}
+
+#smart-studio .studio-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+#smart-studio .studio-tag {
+  color: #b6aaff;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+#smart-studio .studio-header h2 {
+  margin: 12px 0;
+  font-size: clamp(26px, 5vw, 38px);
+}
+
+#smart-studio .studio-header p {
+  color: #aeb4cc;
+  line-height: 1.7;
+}
+
+#smart-studio .studio-layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+#smart-studio .studio-card {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid #343653;
+  border-radius: 16px;
+  background: #171b30;
+}
+
+#smart-studio .studio-card h3 {
+  margin-top: 0;
+}
+
+#smart-studio label {
+  display: block;
+  margin: 16px 0 7px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+#smart-studio input,
+#smart-studio textarea,
+#smart-studio select {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid #424763;
+  border-radius: 9px;
+  background: #0d1020;
+  color: white;
+  font: inherit;
+}
+
+#smart-studio textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+#smart-studio input:focus,
+#smart-studio textarea:focus,
+#smart-studio select:focus {
+  outline: 2px solid #a99bff;
+  outline-offset: 2px;
+}
+
+#smart-studio button {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+  padding: 12px;
+  border: 0;
+  border-radius: 9px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: .2s;
+}
+
+#smart-studio .studio-primary {
+  background: #7966ff;
+  color: white;
+}
+
+#smart-studio .studio-secondary {
+  background: #343653;
+  color: white;
+}
+
+#smart-studio .preview-card {
+  min-height: 280px;
+  padding: 22px;
+  border-radius: 12px;
+  background: #f7f7fc;
+  color: #20223a;
+  overflow-wrap: anywhere;
+}
+
+#smart-studio .preview-card h2 {
+  margin: 0 0 8px;
+  font-size: clamp(25px, 5vw, 34px);
+}
+
+#smart-studio .preview-card h3 {
+  margin-top: 24px;
+}
+
+#smart-studio .preview-card p {
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+
+#smart-studio .preview-role {
+  color: #6551d5;
+  font-weight: bold;
+}
+
+#smart-studio .preview-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+  list-style: none;
+}
+
+#smart-studio .preview-skills li {
+  padding: 7px 10px;
+  border-radius: 20px;
+  background: #e8e4ff;
+  color: #352777;
+  font-size: 13px;
+}
+
+#smart-studio #preview-contact a {
+  color: #6551d5;
+  overflow-wrap: anywhere;
+}
+
+#smart-studio #studio-status {
+  min-height: 20px;
+  color: #b6aaff;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Light theme */
+#smart-studio[data-theme="light"] #studio-content {
+  background: #f3f5fb;
+  color: #20223a;
+}
+
+#smart-studio[data-theme="light"] .studio-card {
+  background: white;
+  border-color: #dce0ee;
+}
+
+#smart-studio[data-theme="light"] .studio-header p {
+  color: #5e647b;
+}
+
+#smart-studio[data-theme="light"] input,
+#smart-studio[data-theme="light"] textarea,
+#smart-studio[data-theme="light"] select {
+  background: white;
+  color: #20223a;
+  border-color: #d4d8e6;
+}
+
+#smart-studio[data-theme="light"] #studio-status {
+  color: #5e49d8;
+}
+
+/* Ocean theme */
+#smart-studio[data-theme="ocean"] #studio-content {
+  background: #071e2b;
+  border-color: #205064;
+}
+
+#smart-studio[data-theme="ocean"] .studio-card {
+  background: #0d2c3d;
+  border-color: #205064;
+}
+
+#smart-studio[data-theme="ocean"] .studio-tag,
+#smart-studio[data-theme="ocean"] #studio-status {
+  color: #52d5dc;
+}
+
+@media (max-width: 700px) {
+  #smart-studio .studio-layout {
+    grid-template-columns: 1fr;
+  }
+
+  #smart-studio .studio-card {
+    padding: 15px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -224,6 +475,95 @@ nav a.active{color:#fcad03}
 </div></section>
 <!-- SMART PORTFOLIO STUDIO: START -->
   
+<!-- Smart Portfolio Studio -->
+<section id="smart-studio">
+  <button id="studio-toggle" type="button"
+          aria-expanded="false" aria-controls="studio-content">
+    View More ↓
+  </button>
+
+  <div id="studio-content" hidden>
+    <header class="studio-header">
+      <span class="studio-tag">FREE CREATIVE TOOL</span>
+      <h2>Smart Portfolio Studio</h2>
+      <p>Create your own professional portfolio in minutes.</p>
+    </header>
+
+    <div class="studio-layout">
+      <!-- Portfolio form -->
+      <div class="studio-card">
+        <h3>Build Your Portfolio</h3>
+
+        <form id="studio-form">
+          <label for="studio-name">Your name *</label>
+          <input id="studio-name" maxlength="80"
+                 placeholder="e.g. Ali Khan" required>
+
+          <label for="studio-role">Profession *</label>
+          <input id="studio-role" maxlength="100"
+                 placeholder="e.g. Web Developer" required>
+
+          <label for="studio-bio">About you *</label>
+          <textarea id="studio-bio" maxlength="700"
+                    placeholder="Write a short introduction..."
+                    required></textarea>
+
+          <label for="studio-skills">Skills</label>
+          <input id="studio-skills" maxlength="300"
+                 placeholder="HTML, CSS, JavaScript">
+
+          <label for="studio-email">Email (optional)</label>
+          <input id="studio-email" type="email" maxlength="150"
+                 placeholder="you@example.com">
+
+          <label for="studio-theme">Choose a theme</label>
+          <select id="studio-theme">
+            <option value="dark">Midnight Purple</option>
+            <option value="light">Clean Light</option>
+            <option value="ocean">Ocean Blue</option>
+          </select>
+
+          <button class="studio-primary" type="submit">
+            Update Preview
+          </button>
+
+          <button class="studio-secondary" id="studio-reset"
+                  type="button">
+            Reset Form
+          </button>
+        </form>
+      </div>
+
+      <!-- Live preview -->
+      <div class="studio-card">
+        <h3>Live Preview</h3>
+
+        <div id="studio-preview" class="preview-card">
+          <h2 id="preview-name">Your Name</h2>
+          <p id="preview-role" class="preview-role">
+            Your profession
+          </p>
+
+          <h3>About Me</h3>
+          <p id="preview-bio">Your introduction appears here.</p>
+
+          <h3>My Skills</h3>
+          <ul id="preview-skills" class="preview-skills">
+            <li>Your skills</li>
+          </ul>
+
+          <div id="preview-contact"></div>
+        </div>
+
+        <button class="studio-primary" id="studio-download"
+                type="button">
+          Download HTML</button>
+        <p id="studio-status" role="status" aria-live="polite"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- SMART PORTFOLIO STUDIO: END -->
 <section id="journey"><h2 class="section-title">My <span>Learning Journey</span></h2>
 <div class="journey">
@@ -658,6 +998,236 @@ if (reviewForm) {
 }
 
 loadApprovedReviews();
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  const studio = document.getElementById("smart-studio");
+  if (!studio || studio.dataset.ready === "true") return;
+
+  studio.dataset.ready = "true";
+
+  const $ = (id) => document.getElementById(id);
+
+  const toggle = $("studio-toggle");
+  const content = $("studio-content");
+  const form = $("studio-form");
+  const status = $("studio-status");
+
+  const nameInput = $("studio-name");
+  const roleInput = $("studio-role");
+  const bioInput = $("studio-bio");
+  const skillsInput = $("studio-skills");
+  const emailInput = $("studio-email");
+  const themeInput = $("studio-theme");
+
+  // Show or hide the feature.
+  toggle.addEventListener("click", function () {
+    const opening = content.hidden;
+
+    content.hidden = !opening;
+    toggle.textContent = opening ? "View Less ↑" : "View More ↓";
+    toggle.setAttribute("aria-expanded", String(opening));
+
+    if (opening) {
+      content.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+  });
+
+  function getData() {
+    return {
+      name: nameInput.value.trim() || "Your Name",
+      role: roleInput.value.trim() || "Your profession",
+      bio: bioInput.value.trim() ||
+        "Your introduction appears here.",
+      skills: skillsInput.value
+        .split(",")
+        .map((skill) => skill.trim())
+        .filter(Boolean)
+        .slice(0, 30),
+      email: emailInput.value.trim(),
+      theme: themeInput.value
+    };
+  }
+
+  function render() {
+    const data = getData();
+
+    $("preview-name").textContent = data.name;
+    $("preview-role").textContent = data.role;
+    $("preview-bio").textContent = data.bio;
+
+    const skillsList = $("preview-skills");
+    skillsList.replaceChildren();
+
+    const skills = data.skills.length
+      ? data.skills
+      : ["Add your skills"];
+
+    skills.forEach(function (skill) {
+      const item = document.createElement("li");
+      item.textContent = skill;
+      skillsList.appendChild(item);
+    });
+
+    const contact = $("preview-contact");
+    contact.replaceChildren();
+
+    if (data.email && emailInput.validity.valid) {
+      const link = document.createElement("a");
+      link.href = "mailto:" + data.email;
+      link.textContent = data.email;
+      contact.appendChild(link);
+    }
+
+    studio.dataset.theme = data.theme;
+  }
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    if (!form.reportValidity()) return;
+
+    render();
+    status.textContent = "Your portfolio preview is updated!";
+  });
+
+  [
+    nameInput,
+    roleInput,
+    bioInput,
+    skillsInput,
+    emailInput
+  ].forEach(function (input) {
+    input.addEventListener("input", render);
+  });
+
+  themeInput.addEventListener("change", render);
+
+  $("studio-reset").addEventListener("click", function () {
+    form.reset();
+    render();
+    status.textContent = "Form reset successfully.";
+  });
+
+  $("studio-download").addEventListener("click", function () {
+    if (!form.reportValidity()) {
+      status.textContent =
+        "Please complete the required fields correctly.";
+      form.reportValidity();
+      return;
+    }
+
+    render();
+
+    const data = getData();
+
+    // Escape visitor-entered content before creating HTML.
+    function escapeHTML(value) {
+      return String(value).replace(/[&<>"']/g, function (char) {
+        return {
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#39;"
+        }[char];
+      });
+    }
+
+    const themes = {
+      dark: {
+        bg: "#0d1020",
+        card: "#171b30",
+        text: "#f5f5ff",
+        accent: "#a99bff"
+      },
+      light: {
+        bg: "#f3f5fb",
+        card: "#ffffff",
+        text: "#20223a",
+        accent: "#5e49d8"
+      },
+      ocean: {
+        bg: "#071e2b",
+        card: "#0d2c3d",
+        text: "#ecfbff",
+        accent: "#52d5dc"
+      }
+    };
+
+    const colors = themes[data.theme] || themes.dark;
+
+    const skillsHTML = (
+      data.skills.length ? data.skills : ["Skills coming soon"]
+    ).map(function (skill) {
+      return "<li>" + escapeHTML(skill) + "</li>";
+    }).join("\n");
+
+    const contactHTML = data.email
+      ? '<p><a href="mailto:' + escapeHTML(data.email) + '">' +
+        escapeHTML(data.email) + "</a></p>"
+      : "";
+
+    const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${escapeHTML(data.name)} | Portfolio</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;padding:25px 15px;font-family:Arial,sans-serif;
+background:${colors.bg};color:${colors.text}}
+main{max-width:800px;margin:35px auto;padding:clamp(22px,5vw,45px);
+background:${colors.card};border-radius:20px}
+h1{font-size:clamp(32px,7vw,52px);margin-bottom:8px}
+h2{margin-top:30px}
+p{line-height:1.8;overflow-wrap:anywhere;white-space:pre-wrap}
+.role{color:${colors.accent};font-weight:bold}
+ul{display:flex;flex-wrap:wrap;gap:10px;padding:0;list-style:none}
+li{padding:9px 13px;border-radius:20px;background:${colors.bg}}
+a{color:${colors.accent};overflow-wrap:anywhere}
+</style>
+</head>
+<body>
+<main>
+<h1>${escapeHTML(data.name)}</h1>
+<p class="role">${escapeHTML(data.role)}</p>
+<h2>About Me</h2>
+<p>${escapeHTML(data.bio)}</p>
+<h2>Skills</h2>
+<ul>${skillsHTML}</ul>
+${contactHTML}
+</main>
+</body>
+</html>`;
+
+    const blob = new Blob([html], {
+      type: "text/html;charset=utf-8"
+    });
+
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = "my-portfolio.html";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    setTimeout(function () {
+      URL.revokeObjectURL(url);
+    }, 1500);
+
+    status.textContent = "Your HTML download has started!";
+  });
+
+  render();
+});
+
 </script>
 
 </body>

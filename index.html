@@ -127,17 +127,14 @@ nav a.active{color:#fcad03}
 .review-card h3 {
   margin-bottom: 8px;
 }
-
 .review-card p {
   line-height: 1.7;
   overflow-wrap: anywhere;
 }
-
 @media (max-width: 480px) {
   .approved-reviews {padding: 18px 12px;}
   .review-card {padding: 17px;}
 }
-
 /* ===== Premium visitor reviews refresh (visual-only; Supabase logic unchanged) ===== */
 #reviews.reviews-section,
 #approved-reviews.approved-reviews{
@@ -267,7 +264,528 @@ nav a.active{color:#fcad03}
   <div class="project-body"><h3>Next Project</h3><p>I'm building new projects to practice web development and create useful, user-friendly experiences.</p><div class="project-meta"><span class="project-tag">In Progress</span></div><div class="project-actions"><span class="project-action unavailable">Coming soon</span></div></div>
 </article>
 </div></section>
+  
+<!-- SMART PORTFOLIO STUDIO: START -->
+<style>
+  #viewMoreStudio,
+  #portfolioStudio button {
+    padding: 12px 20px;
+    border: 0;
+    border-radius: 10px;
+    background: #7966ff;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform .2s, opacity .2s;
+  }
 
+  #viewMoreStudio {
+    display: block;
+    margin: 35px auto;
+  }
+
+  #viewMoreStudio:hover,
+  #portfolioStudio button:hover {
+    opacity: .88;
+    transform: translateY(-2px);
+  }
+
+  #portfolioStudio[hidden] {
+    display: none !important;
+  }
+
+  #portfolioStudio {
+    --studio-bg: #0d1020;
+    --studio-card: #171b30;
+    --studio-text: #f5f5ff;
+    --studio-muted: #aeb4cc;
+    --studio-accent: #a99bff;
+    box-sizing: border-box;
+    width: min(100% - 24px, 1050px);
+    margin: 25px auto 50px;
+    padding: clamp(18px, 4vw, 38px);
+    border: 1px solid #343653;
+    border-radius: 22px;
+    background: var(--studio-bg);
+    color: var(--studio-text);
+    font-family: Arial, sans-serif;
+    scroll-margin-top: 20px;
+  }
+
+  #portfolioStudio * {
+    box-sizing: border-box;
+  }
+
+  #portfolioStudio .studio-heading {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  #portfolioStudio .studio-heading h2 {
+    margin: 0 0 10px;
+    font-size: clamp(25px, 5vw, 38px);
+  }
+
+  #portfolioStudio .studio-heading p,
+  #portfolioStudio .studio-muted {
+    color: var(--studio-muted);
+    line-height: 1.7;
+  }
+
+  #portfolioStudio .studio-layout {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+  }
+
+  #portfolioStudio .studio-panel {
+    min-width: 0;
+    padding: 20px;
+    border: 1px solid #343653;
+    border-radius: 16px;
+    background: var(--studio-card);
+  }
+
+  #portfolioStudio .studio-panel h3 {
+    margin-top: 0;
+  }
+
+  #portfolioStudio label {
+    display: block;
+    margin: 16px 0 7px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  #portfolioStudio input,
+  #portfolioStudio textarea,
+  #portfolioStudio select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #424763;
+    border-radius: 9px;
+    background: #0d1020;
+    color: #fff;
+    font: inherit;
+  }
+
+  #portfolioStudio textarea {
+    min-height: 95px;
+    resize: vertical;
+  }
+
+  #portfolioStudio input:focus,
+  #portfolioStudio textarea:focus,
+  #portfolioStudio select:focus {
+    outline: 2px solid var(--studio-accent);
+    outline-offset: 2px;
+  }
+
+  #portfolioStudio .studio-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 18px;
+  }
+
+  #portfolioStudio .studio-actions button {
+    flex: 1 1 130px;
+  }
+
+  #portfolioStudio .studio-secondary {
+    background: #343653;
+  }
+
+  #portfolioStudio .studio-preview {
+    min-height: 300px;
+    padding: 25px;
+    overflow-wrap: anywhere;
+    border-radius: 12px;
+    background: #f7f7fc;
+    color: #20223a;
+  }
+
+  #portfolioStudio .studio-preview h2 {
+    margin: 0 0 7px;
+    font-size: clamp(25px, 5vw, 34px);
+  }
+
+  #portfolioStudio .studio-preview h3 {
+    margin-top: 25px;
+  }
+
+  #portfolioStudio .studio-preview p {
+    line-height: 1.7;
+    white-space: pre-wrap;
+  }
+
+  #portfolioStudio .studio-preview a {
+    color: #6551d5;
+    overflow-wrap: anywhere;
+  }
+
+  #portfolioStudio .studio-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0;
+    list-style: none;
+  }
+
+  #portfolioStudio .studio-skills li {
+    padding: 7px 10px;
+    border-radius: 20px;
+    background: #e8e4ff;
+    color: #352777;
+    font-size: 13px;
+  }
+
+  #portfolioStudio .studio-status {
+    min-height: 24px;
+    margin-top: 12px;
+    color: var(--studio-accent);
+    font-size: 13px;
+  }
+
+  #portfolioStudio[data-theme="light"] {
+    --studio-bg: #f3f5fb;
+    --studio-card: #ffffff;
+    --studio-text: #20223a;
+    --studio-muted: #5e647b;
+    --studio-accent: #5e49d8;
+    border-color: #dce0ee;
+  }
+
+  #portfolioStudio[data-theme="light"] input,
+  #portfolioStudio[data-theme="light"] textarea,
+  #portfolioStudio[data-theme="light"] select {
+    background: #fff;
+    color: #20223a;
+    border-color: #d4d8e6;
+  }
+
+  #portfolioStudio[data-theme="light"] .studio-secondary {
+    background: #343653;
+    color: #fff;
+  }
+
+  #portfolioStudio[data-theme="ocean"] {
+    --studio-bg: #071e2b;
+    --studio-card: #0d2c3d;
+    --studio-text: #ecfbff;
+    --studio-muted: #a9cad7;
+    --studio-accent: #52d5dc;
+    border-color: #205064;
+  }
+
+  @media (max-width: 700px) {
+    #portfolioStudio .studio-layout {
+      grid-template-columns: 1fr;
+    }
+
+    #portfolioStudio .studio-panel {
+      padding: 16px;
+    }
+  }
+</style>
+
+<button
+  id="viewMoreStudio"
+  type="button"
+  aria-expanded="false"
+  aria-controls="portfolioStudio">
+  View More ↓
+</button>
+
+<section id="portfolioStudio" data-theme="dark" hidden>
+  <div class="studio-heading">
+    <h2>Smart Portfolio Studio</h2>
+    <p>Create your own personal portfolio in minutes — no coding required.</p>
+  </div>
+
+  <div class="studio-layout">
+    <div class="studio-panel">
+      <h3>Build Your Portfolio</h3>
+
+      <form id="studioForm">
+        <label for="studioName">Your name *</label>
+        <input id="studioName" maxlength="80"
+          placeholder="e.g. Ali Khan" required>
+
+        <label for="studioRole">Your profession or role *</label>
+        <input id="studioRole" maxlength="100"
+          placeholder="e.g. Front-End Developer" required>
+
+        <label for="studioBio">About you *</label>
+        <textarea id="studioBio" maxlength="700"
+          placeholder="Write a short introduction..." required></textarea>
+
+        <label for="studioSkills">Your skills</label>
+        <input id="studioSkills" maxlength="300"
+          placeholder="HTML, CSS, JavaScript">
+
+        <label for="studioEmail">Contact email (optional)</label>
+        <input id="studioEmail" type="email" maxlength="150"
+          placeholder="you@example.com">
+
+        <label for="studioTheme">Choose a theme</label>
+        <select id="studioTheme">
+          <option value="dark">Midnight Purple</option>
+          <option value="light">Clean Light</option>
+          <option value="ocean">Ocean Blue</option>
+        </select>
+
+        <div class="studio-actions">
+          <button type="submit">Update Preview</button>
+          <button type="button" class="studio-secondary"
+            id="studioReset">Reset</button>
+        </div>
+      </form>
+      <p class="studio-muted">
+        Your entries are used in this page only. They are not uploaded to a server.
+      </p>
+    </div>
+
+    <div class="studio-panel">
+      <h3>Live Preview</h3>
+
+      <div class="studio-preview" id="studioPreview">
+        <h2 id="resultName">Your Name</h2>
+        <p id="resultRole">Your profession</p>
+        <p id="resultBio">Your introduction will appear here.</p>
+
+        <h3>My Skills</h3>
+        <ul class="studio-skills" id="resultSkills">
+          <li>Your skills</li>
+        </ul>
+
+        <div id="resultContact"></div>
+      </div>
+
+      <div class="studio-actions">
+        <button type="button" id="studioDownload">Download HTML</button>
+      </div>
+
+      <p class="studio-status" id="studioStatus"
+        role="status" aria-live="polite"></p>
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  "use strict";
+
+  const toggle = document.getElementById("viewMoreStudio");
+  const studio = document.getElementById("portfolioStudio");
+  const form = document.getElementById("studioForm");
+
+  // Prevent duplicate setup if this script is accidentally included twice.
+  if (!toggle || !studio || !form || studio.dataset.initialized) return;
+  studio.dataset.initialized = "true";
+
+  const $ = (id) => document.getElementById(id);
+
+  const nameInput = $("studioName");
+  const roleInput = $("studioRole");
+  const bioInput = $("studioBio");
+  const skillsInput = $("studioSkills");
+  const emailInput = $("studioEmail");
+  const themeInput = $("studioTheme");
+  const status = $("studioStatus");
+
+  const safeText = (value) => String(value || "").trim();
+
+  function getData() {
+    return {
+      name: safeText(nameInput.value) || "Your Name",
+      role: safeText(roleInput.value) || "Your profession",
+      bio: safeText(bioInput.value) ||
+        "Your introduction will appear here.",
+      skills: safeText(skillsInput.value)
+        .split(",")
+        .map((skill) => skill.trim())
+        .filter(Boolean)
+        .slice(0, 30),
+      email: safeText(emailInput.value),
+      theme: themeInput.value
+    };
+  }
+
+  function addSkills(list, skills) {
+    list.replaceChildren();
+
+    if (!skills.length) {
+      const item = document.createElement("li");
+      item.textContent = "Add your skills";
+      list.appendChild(item);
+      return;
+    }
+
+    skills.forEach((skill) => {
+      const item = document.createElement("li");
+      item.textContent = skill;
+      list.appendChild(item);
+    });
+  }
+
+  function render() {
+    const data = getData();
+
+    $("resultName").textContent = data.name;
+    $("resultRole").textContent = data.role;
+    $("resultBio").textContent = data.bio;
+
+    addSkills($("resultSkills"), data.skills);
+
+    const contact = $("resultContact");
+    contact.replaceChildren();
+
+    if (data.email) {
+      const heading = document.createElement("h3");
+      heading.textContent = "Contact";
+      const link = document.createElement("a");
+      link.textContent = data.email;
+      link.href = "mailto:" + data.email;
+      contact.append(heading, link);
+    }
+
+    studio.dataset.theme = data.theme;
+  }
+
+  toggle.addEventListener("click", function () {
+    const opening = studio.hidden;
+    studio.hidden = !opening;
+    toggle.textContent = opening ? "View Less ↑" : "View More ↓";
+    toggle.setAttribute("aria-expanded", String(opening));
+
+    if (opening) {
+      studio.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+  });
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    if (!form.reportValidity()) return;
+
+    render();
+    status.textContent = "Your preview has been updated!";
+  });
+
+  ["studioName", "studioRole", "studioBio",
+   "studioSkills", "studioEmail"].forEach((id) => {
+    $(id).addEventListener("input", render);
+  });
+
+  themeInput.addEventListener("change", render);
+
+  $("studioReset").addEventListener("click", function () {
+    form.reset();
+    render();
+    status.textContent = "The form has been reset.";
+  });
+
+  $("studioDownload").addEventListener("click", function () {
+    if (!safeText(nameInput.value) ||
+        !safeText(roleInput.value) ||
+        !safeText(bioInput.value)) {
+      status.textContent = "Please enter your name, role, and introduction first.";
+      nameInput.focus();
+      return;
+    }
+
+    render();
+    const data = getData();
+
+    // Escape user-entered text before embedding it in the downloaded HTML.
+    const esc = (value) => String(value).replace(/[&<>"']/g, (char) => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    })[char]);
+
+    const skillsHTML = data.skills.length
+      ? data.skills.map((skill) =>
+          "<li>" + esc(skill) + "</li>").join("\n")
+      : "<li>Skills coming soon</li>";
+
+    const contactHTML = data.email
+      ? '<p><a href="mailto:' + esc(data.email) + '">' +
+        esc(data.email) + "</a></p>"
+      : "";
+    const themes = {
+      dark: {
+        bg: "#0d1020", card: "#171b30",
+        text: "#f5f5ff", accent: "#a99bff"
+      },
+      light: {
+        bg: "#f3f5fb", card: "#ffffff",
+        text: "#20223a", accent: "#5e49d8"
+      },
+      ocean: {
+        bg: "#071e2b", card: "#0d2c3d",
+        text: "#ecfbff", accent: "#52d5dc"
+      }
+    };
+    const colors = themes[data.theme] || themes.dark;
+
+    const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${esc(data.name)} | Portfolio</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;padding:30px 16px;font-family:Arial,sans-serif;
+background:${colors.bg};color:${colors.text}}
+main{max-width:800px;margin:40px auto;padding:clamp(22px,5vw,45px);
+background:${colors.card};border-radius:20px}
+h1{font-size:clamp(32px,7vw,52px);margin-bottom:8px}
+h2{margin-top:32px}
+p{line-height:1.8;overflow-wrap:anywhere}
+.role{color:${colors.accent};font-weight:bold}
+ul{display:flex;flex-wrap:wrap;gap:10px;padding:0;list-style:none}
+li{padding:9px 13px;border-radius:20px;background:${colors.bg}}
+a{color:${colors.accent};overflow-wrap:anywhere}
+</style>
+</head>
+<body>
+<main>
+<h1>${esc(data.name)}</h1>
+<p class="role">${esc(data.role)}</p>
+<h2>About Me</h2>
+<p>${esc(data.bio)}</p>
+<h2>Skills</h2>
+<ul>${skillsHTML}</ul>
+${contactHTML}
+</main>
+</body>
+</html>`;
+    const blob = new Blob([html], {
+      type: "text/html;charset=utf-8"
+    });
+    const url = URL.createObjectURL(blob);
+    const downloadLink = document.createElement("a");
+    downloadLink.href = url;
+    downloadLink.download = "my-portfolio.html";
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    downloadLink.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    status.textContent = "Your portfolio download has started!";
+  });
+  render();
+})();
+</script>
+<!-- SMART PORTFOLIO STUDIO: END -->
 <section id="journey"><h2 class="section-title">My <span>Learning Journey</span></h2>
 <div class="journey">
 <div class="journey-item"><h3>HTML</h3><p>Learning how websites are structured using semantic HTML and practical projects.</p></div>
